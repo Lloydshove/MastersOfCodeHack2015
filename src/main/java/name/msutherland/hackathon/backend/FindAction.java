@@ -3,12 +3,18 @@ package name.msutherland.hackathon.backend;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 public class FindAction {
+
+
+    private final Logger log = LogManager.getLogger(FindAction.class);
+    
     private final BigDecimal xPosition;
     private final BigDecimal yPosition;
     private final Date start;
@@ -28,6 +34,7 @@ public class FindAction {
     }
 
     public Collection<String> execute(){
+        log.debug("Keywords = "+keywords);
 
         MongoCollection<Document> coll = db.getCollection("clientLocations");
         
@@ -35,9 +42,13 @@ public class FindAction {
         coordinates.put("0", xPosition.doubleValue());
         coordinates.put("1", yPosition.doubleValue());
 
-        Document dateQuery = new Document("start",
-                new Document("$gt", start).
-                append("$lte", end));
+
+
+        Document dateQueryStart = new Document("start",
+                new Document("$lte", end));
+
+        Document dateQueryEnd = new Document("end",
+                new Document("$gte", start));
         
         Document locationQuery =
                 new Document("loc",
@@ -54,7 +65,8 @@ public class FindAction {
                 );
         
         List<Document> queries = new ArrayList<>();
-        queries.add(dateQuery);
+        queries.add(dateQueryStart);
+        queries.add(dateQueryEnd);
         queries.add(locationQuery);
         queries.add(buyOrSellQuery);
         for(String keyword : keywords) {
