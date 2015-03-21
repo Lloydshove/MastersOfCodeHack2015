@@ -39,9 +39,39 @@
     </div>
 </div>
 
+<div id="nearbyList"></div>
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="dist/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url:'dynamic/api/findAllNearby?xPosition=0.1&yPosition=0&start=01011000010101&end=01011300010101&buyOrSell=BUY',
+            method:"POST"
+            }).done(function(msg) {
+                    renderNearby(msg);
+                });
+    });
+
+    function renderNearby(jsonResponse){
+        //alert(JSON.stringify(jsonResponse));
+        var results = jsonResponse;
+        $("#nearbyList").append('<ul class="list-group">');
+        $.each(results, function(key, result) {
+           // alert(JSON.stringify(result));
+
+           // alert('keyword: ' + result.keyword + ' cust:' + result.customer);
+            var button='<a a href="#" class="list-group-item">' +
+                    '<h4 class="list-group-item-heading">'+result.keyword+'</h4>' +
+                    '<p class="list-group-item-text">Seller : '+result.customer +'</p>' +
+                    '</a>';
+            $("#nearbyList").append(button);
+        });
+        $("#nearbyList").append('</ul>');
+    }
+</script>
 </body>
 </html>

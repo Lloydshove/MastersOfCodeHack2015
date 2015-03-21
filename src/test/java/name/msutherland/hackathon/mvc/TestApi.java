@@ -40,6 +40,34 @@ public class TestApi {
 
 
     @Test
+    public void submitInsert2() throws Exception {
+
+        submitStandard("Mr Big", "New Baby Shoes, minolo blahnic.  Bargain");
+        submitStandard("M. Thatcher", "Old public services");
+        submitStandard("J R Hartley", "Second hand book - Fly Fishing");
+    }
+
+    private void submitStandard(String customer, String keywords) throws java.io.IOException {
+        String start = "01011000010101";
+        String end = "01011300010101";
+        WebClient client = new WebClient();
+        WebRequest req = new WebRequest(new URL("http://127.0.0.1:8080/dynamic/api/insert"), HttpMethod.POST);
+        req.setAdditionalHeader("Accept", "application/json");
+        List<NameValuePair> requestParams = new ArrayList<>();
+        requestParams.add(new NameValuePair("customerId", customer));
+        requestParams.add(new NameValuePair("xPosition", "0.1"));
+        requestParams.add(new NameValuePair("yPosition", "0"));
+        requestParams.add(new NameValuePair("start", start));
+        requestParams.add(new NameValuePair("end", end));
+        requestParams.add(new NameValuePair("keywords", keywords));
+        requestParams.add(new NameValuePair("buyOrSell", "BUY"));
+
+        req.setRequestParameters(requestParams);
+        System.out.println(client.getPage(req).getWebResponse().getContentAsString());
+    }
+
+
+    @Test
     public void submitFind() throws Exception {
 
         WebClient client = new WebClient();
