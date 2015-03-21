@@ -1,0 +1,16 @@
+body{
+    padding: 10px;
+}
+
+div .row{
+    padding: 10px;
+}
+
+div #googleMap{
+    height: 380px;
+;
+}
+
+div .row a{
+    width:100%;
+}
