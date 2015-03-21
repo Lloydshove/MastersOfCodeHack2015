@@ -4,7 +4,7 @@ var myPosition = {
         longitude: 114
     }
 };
-var googleMapMarkers = [];
+var googleMapMarkers = {};
 
 function getCountry(results) {
     var geocoderAddressComponent, addressComponentTypes, address;
@@ -24,7 +24,7 @@ function getCountry(results) {
 }
 
 function getCountry(country) {
-    geocoder.geocode( { 'address': country }, function(results, status) {
+    geocoder.geocode({'address': country}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
@@ -45,7 +45,6 @@ function setPositionForDiv(positionData, div) {
 }
 
 
-
 function initialize() {
     var map;
 
@@ -58,32 +57,57 @@ function initialize() {
 
     function setUpListeners() {
         var divPositionList = $("#positionsList");
-        divPositionList.on("click", "a", function () {
-            var val = parseInt($(this).attr("value"));
-            deleteMarker(googleMapMarkers[val]);
-            googleMapMarkers.splice(val, 1);
-            updateItemList();
-        });
-        function updateItemList() {
-            var item = '';
-            divPositionList.html('');
-            for (var i = 0; i < googleMapMarkers.length; i++)
-                  item +=
-                     '<div class="col-md-6">' +
-                     'Position ' + (i+1) +
-                     '</div>' +
-                     '<div class="col-md-2">' +
-                     '<a class="btn btn-danger" value="' + i + '">Delete</a>' +
-                     '</div>';
-            divPositionList.append(item);
+        /*divPositionList.on("click", "a", function () {
+         //var val = parseInt($(this).attr("value"));
+         deleteMarker(googleMapMarkers[$(this)]);
+         googleMapMarkers.splice(val, 1);
+         updateItemList();
+         });*/
+        function removeFromItemList(marker, button, item) {
+            return function () {
+                deleteMarker(marker);
+                button.parent().remove();
+                item.remove();
+            };
+
+            //function(){
+            //    deleteMarker(googleMapMarkers[button]);
+            //    delete googleMapMarkers[button];
+            //    button.parent().remove();
+            //    item.parent().remove();
+            //}
         }
 
         google.maps.event.addListener(map, 'click',
             function (event) {
                 function addMarker(latLng) {
-                    googleMapMarkers.push(new google.maps.Marker({position: latLng, map: map}));
-                    updateItemList();
+                    var marker = new google.maps.Marker({position: latLng, map: map});
+
+                    var item1 = '';
+                    item1 = $('<div class="col-md-6">' +
+                    'Position ' + latLng.lat() + "_" + latLng.lng() +
+                    '</div>');
+
+                    item1.appendTo(divPositionList);
+
+                    var item2 = $('<div class="col-md-2"></div>');
+
+                    var deleteButton = $('<a class="btn btn-danger" value="'+'Position' + latLng.lat() + "_" + latLng.lng() +'">Delete</a>');
+
+                    deleteButton.click(function (e) {
+                        e.preventDefault();
+                        removeFromItemList(marker, $(this), item1)();
+                        //googleMapMarkers.splice(val, 1);
+                    });
+
+                    deleteButton.appendTo(item2);
+
+
+
+
+                    item2.appendTo(divPositionList);
                 }
+
                 console.log("lat:" + event.latLng.lat() + "," + "long:" + event.latLng.lng());
                 addMarker(event.latLng);
 
