@@ -1,3 +1,5 @@
+var map;
+var marker;
 var myPosition = {
     coords: {
         latitude: 22,
@@ -5,86 +7,53 @@ var myPosition = {
     }
 };
 
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();
-
-function setUpDirectionDisplay(map) {
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
-}
-
-function calcRoute(endpoint) {
-    var start = new google.maps.LatLng(myPosition.coords.latitude, myPosition.coords.longitude);
-    var end = endpoint;
-    var request = {
-        origin:start,
-        destination:end,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-    });
-}
-
-
-function getCountry(results) {
-    var geocoderAddressComponent,addressComponentTypes,address;
-    for (var i in results) {
-        geocoderAddressComponent = results[i].address_components;
-        for (var j in geocoderAddressComponent) {
-            address = geocoderAddressComponent[j];
-            addressComponentTypes = geocoderAddressComponent[j].types;
-            for (var k in addressComponentTypes) {
-                if (addressComponentTypes[k] == 'country') {
-                    return address;
-                }
-            }
-        }
-    }
-    return 'Unknown';
-}
-
-function setPositionForDiv(positionData, div) {
-    myPosition = positionData;
-    div.html("Latitude: " + positionData.coords.latitude +
-    "<br>Longitude: " + positionData.coords.longitude);
+function convertPositionToGoogleLatLng(myPosition) {
+    return new google.maps.LatLng(myPosition.coords.latitude, myPosition.coords.longitude);
 }
 
 function initialize() {
-    var map;
+
+    function setMarker(currPos) {
+        marker = new google.maps.Marker({
+            position: currPos,
+            map: map
+        });
+    }
+
 
     function setUpListeners() {
         google.maps.event.addListener(map, 'click',
             function (event) {
                 console.log("lat:" + event.latLng.lat() + "," + "long:" + event.latLng.lng());
-                //call function to create marker
-                //$("#coordinate").val(event.latLng.lat() + ", " + event.latLng.lng());
-                //$("#coordinate").select();
-                //delete the old marker
                 if (typeof marker != 'undefined') {
                     marker.setMap(null);
                 }
-                //creer à la nouvelle emplacement
                 marker = new google.maps.Marker({position: event.latLng, map: map});
-                //myPosition.coords.latitude=event.latLng.lat();
-                //myPosition.coords.longitude=event.latLng.lng();
-                //setPositionForDiv(myPosition, $("#divPosition"));
-                calcRoute(event.latLng);
+                //calcRoute(event.latLng);
             });
     }
 
-    var mapProp = {
-        center: new google.maps.LatLng(myPosition.coords.latitude, myPosition.coords.longitude),
-        zoom: 10,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (positionData) {
+                    myPosition['coords'] = positionData.coords;
+                    var mapProp = {
+                        center: convertPositionToGoogleLatLng(myPosition),
+                        zoom: 14,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-    setUpListeners();
-    setUpDirectionDisplay(map);
+                    setMarker(convertPositionToGoogleLatLng(myPosition));
+                    setUpListeners();
+                }
+            );
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
 
+    getCurrentLocation();
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -95,28 +64,14 @@ function loadScript() {
 }
 
 $(document).ready(function () {
-        function setUpButtons() {
-            //$("#btnLoadGoogleMap").click(loadScript);
-            $("#btnUseCurrentPosition").click(
-                function () {
-                    var divPosition = $("#divPosition");
-
-                    function getLocation() {
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(function (positionData) {
-                                    setPositionForDiv(positionData, divPosition);
-                                }
-                            );
-                        } else {
-                            divPosition.html("Geolocation is not supported by this browser.");
-                        }
-                    }
-
-                    getLocation();
-                });
-        }
-
-
-        setUpButtons();
+        $('#btnUseCurrentPosition').click(function () {
+            if (typeof window.opener != undefined) {
+                if (window.opener !==  null) {
+                    window.opener.$("[name=xPosition]").val(myPosition.coords.latitude);
+                    window.opener.$("[name=yPosition]").val(myPosition.coords.longitude)
+                    self.close();
+                }
+            }
+        })
     }
 );

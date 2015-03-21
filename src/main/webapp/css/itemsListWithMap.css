@@ -3,16 +3,16 @@ html {
 }
 
 body {
+    padding: 10px;
     /*height: 100%;*/
 }
 
 div .row {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
 }
 
 div #googleMap {
-    height: 300px;
+    height: 380px;;
 }
 
 div .row a {

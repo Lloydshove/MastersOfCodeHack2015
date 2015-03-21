@@ -1,0 +1,12 @@
+div #googleMap {
+    height: 300px;
+}
+
+div .mapRow {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div #btnUseCurrentPosition{
+    width: 100%;
+}

@@ -16,7 +16,7 @@
     <script src="http://maps.googleapis.com/maps/api/js"></script>
 
     <!--Self-defined-->
-    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/mapWithRoute.css">
 </head>
 <body>
 
@@ -48,19 +48,35 @@
     -->
 
     <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">
+                Start Location
+            </div>
+        </div>
+
         <div class="panel-body">
             <div class="row">
                 <div class="row">
                     <div class="col-md-6">
-                        <a class="btn btn-primary" id="btnUseCurrentPosition">Set Position</a>
+                        Start Location:
+                    </div>
+                    <div class="col-md-6">
+                        <a class="btn btn-primary" id="btnUseCurrentPosition">Use My Current Position</a>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6" id="divPosition">
+
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
-<script src="js/map.js"></script>
+<script src="js/mapWithRoute.js"></script>
 
 </body>
 </html>

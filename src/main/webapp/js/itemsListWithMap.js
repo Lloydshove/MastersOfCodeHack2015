@@ -47,6 +47,9 @@ function setPositionForDiv(positionData, div) {
 
 function initialize() {
     var map;
+    var geocoder;
+
+    geocoder = new google.maps.Geocoder();
 
     function deleteMarker(marker) {
         //delete the old marker
@@ -78,34 +81,59 @@ function initialize() {
             //}
         }
 
+        function setInfoWindowForMarker(infowindow, marker){
+            infowindow.open(map, marker);
+        }
+
         google.maps.event.addListener(map, 'click',
             function (event) {
                 function addMarker(latLng) {
-                    var marker = new google.maps.Marker({position: latLng, map: map});
+                    geocoder.geocode({'latLng': latLng}, function(results, status) {
+                        var realAddress = '';
 
-                    var item1 = '';
-                    item1 = $('<div class="col-md-6">' +
-                    'Position ' + latLng.lat() + "_" + latLng.lng() +
-                    '</div>');
+                        var marker = new google.maps.Marker(
+                            {position: latLng, map: map}
+                        );
 
-                    item1.appendTo(divPositionList);
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[1]) {
+                                var infowindow = new google.maps.InfoWindow();
 
-                    var item2 = $('<div class="col-md-2"></div>');
+                                infowindow.setContent(results[1].formatted_address);
 
-                    var deleteButton = $('<a class="btn btn-danger" value="'+'Position' + latLng.lat() + "_" + latLng.lng() +'">Delete</a>');
+                                google.maps.event.addListener(marker,"click", function(){
+                                    return setInfoWindowForMarker(infowindow, marker);
+                                });
 
-                    deleteButton.click(function (e) {
-                        e.preventDefault();
-                        removeFromItemList(marker, $(this), item1)();
-                        //googleMapMarkers.splice(val, 1);
+                                realAddress = results[1].formatted_address;
+                            }
+                        } else {
+                            console.log("No addresses added since Geocoder failed due to: " + status);
+                        }
+
+                        var item1 = '';
+                        item1 = $('<div class="col-md-6">' +
+                        realAddress + '(' + latLng.lat() + '_' + latLng.lng() + ')' +
+                        '</div>');
+
+                        item1.appendTo(divPositionList);
+
+                        var item2 = $('<div class="col-md-2"></div>');
+
+                        var deleteButton = $('<a class="btn btn-danger">Delete</a>');
+
+                        deleteButton.click(function (e) {
+                            e.preventDefault();
+                            removeFromItemList(marker, $(this), item1)();
+                            //googleMapMarkers.splice(val, 1);
+                        });
+
+                        deleteButton.appendTo(item2);
+
+                        item2.appendTo(divPositionList);
+
                     });
 
-                    deleteButton.appendTo(item2);
-
-
-
-
-                    item2.appendTo(divPositionList);
                 }
 
                 console.log("lat:" + event.latLng.lat() + "," + "long:" + event.latLng.lng());
