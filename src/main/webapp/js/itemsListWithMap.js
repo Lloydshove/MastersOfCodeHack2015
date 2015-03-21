@@ -6,30 +6,6 @@ var myPosition = {
 };
 var googleMapMarkers = [];
 
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();
-
-function setUpDirectionDisplay(map) {
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
-}
-
-function calcRoute(endpoint) {
-    var start = new google.maps.LatLng(myPosition.coords.latitude, myPosition.coords.longitude);
-    var end = endpoint;
-    var request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, function (response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-    });
-}
-
-
 function getCountry(results) {
     var geocoderAddressComponent, addressComponentTypes, address;
     for (var i in results) {
@@ -47,21 +23,38 @@ function getCountry(results) {
     return 'Unknown';
 }
 
+function getCountry(country) {
+    geocoder.geocode( { 'address': country }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
+    });
+}
+
+
 function setPositionForDiv(positionData, div) {
     myPosition = positionData;
     div.html("Latitude: " + positionData.coords.latitude +
     "<br>Longitude: " + positionData.coords.longitude);
 }
 
-function deleteMarker(marker) {
-    //delete the old marker
-    if (typeof marker != 'undefined') {
-        marker.setMap(null);
-    }
-}
+
 
 function initialize() {
     var map;
+
+    function deleteMarker(marker) {
+        //delete the old marker
+        if (typeof marker != 'undefined') {
+            marker.setMap(null);
+        }
+    }
 
     function setUpListeners() {
         var divPositionList = $("#positionsList");
@@ -115,7 +108,7 @@ function initialize() {
     map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
     setUpListeners();
-    setUpDirectionDisplay(map);
+    //setUpDirectionDisplay(map);
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
