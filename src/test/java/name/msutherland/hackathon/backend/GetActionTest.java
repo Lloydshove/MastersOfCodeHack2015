@@ -13,7 +13,7 @@ import java.util.Date;
 import static name.msutherland.hackathon.backend.MongoConnection.HOST;
 import static name.msutherland.hackathon.backend.MongoConnection.PORT;
 
-public class InsertActionTest{
+public class GetActionTest {
     
     private static MongoClient mongoClient;
     private static MongoDatabase db;
@@ -31,9 +31,7 @@ public class InsertActionTest{
 
     @Test
     public void testExecute() throws Exception {
-        InsertAction action = new InsertAction("customerId", new BigDecimal("0"), new BigDecimal(0), new Date(), new Date(),
-                Collections.emptyList(), "", BuyOrSell.SELL, db
-        );
+        GetAction action = new GetAction("47692f4a-4475-4a6e-8825-249ec4146977", db);
         action.execute();
 
     }
