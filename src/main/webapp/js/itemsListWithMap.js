@@ -4,6 +4,7 @@ var myPosition = {
         longitude: 114
     }
 };
+var googleMapMarkers = [];
 
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
@@ -17,11 +18,11 @@ function calcRoute(endpoint) {
     var start = new google.maps.LatLng(myPosition.coords.latitude, myPosition.coords.longitude);
     var end = endpoint;
     var request = {
-        origin:start,
-        destination:end,
+        origin: start,
+        destination: end,
         travelMode: google.maps.TravelMode.DRIVING
     };
-    directionsService.route(request, function(response, status) {
+    directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
         }
@@ -30,7 +31,7 @@ function calcRoute(endpoint) {
 
 
 function getCountry(results) {
-    var geocoderAddressComponent,addressComponentTypes,address;
+    var geocoderAddressComponent, addressComponentTypes, address;
     for (var i in results) {
         geocoderAddressComponent = results[i].address_components;
         for (var j in geocoderAddressComponent) {
@@ -52,26 +53,57 @@ function setPositionForDiv(positionData, div) {
     "<br>Longitude: " + positionData.coords.longitude);
 }
 
+function deleteMarker(marker) {
+    //delete the old marker
+    if (typeof marker != 'undefined') {
+        marker.setMap(null);
+    }
+}
+
 function initialize() {
     var map;
 
     function setUpListeners() {
+        var divPositionList = $("#positionsList");
+        divPositionList.on("click", "a", function () {
+            var val = parseInt($(this).attr("value"));
+            deleteMarker(googleMapMarkers[val]);
+            googleMapMarkers.splice(val, 1);
+            updateItemList();
+        });
+        function updateItemList() {
+            var item = '';
+            divPositionList.html('');
+            for (var i = 0; i < googleMapMarkers.length; i++)
+                  item +=
+                     '<div class="col-md-6">' +
+                     'Position ' + (i+1) +
+                     '</div>' +
+                     '<div class="col-md-2">' +
+                     '<a class="btn btn-danger" value="' + i + '">Delete</a>' +
+                     '</div>';
+            divPositionList.append(item);
+        }
+
         google.maps.event.addListener(map, 'click',
             function (event) {
+                function addMarker(latLng) {
+                    googleMapMarkers.push(new google.maps.Marker({position: latLng, map: map}));
+                    updateItemList();
+                }
                 console.log("lat:" + event.latLng.lat() + "," + "long:" + event.latLng.lng());
+                addMarker(event.latLng);
+
+
                 //call function to create marker
                 //$("#coordinate").val(event.latLng.lat() + ", " + event.latLng.lng());
                 //$("#coordinate").select();
-                //delete the old marker
-                if (typeof marker != 'undefined') {
-                    marker.setMap(null);
-                }
                 //creer à la nouvelle emplacement
-                marker = new google.maps.Marker({position: event.latLng, map: map});
                 //myPosition.coords.latitude=event.latLng.lat();
                 //myPosition.coords.longitude=event.latLng.lng();
                 //setPositionForDiv(myPosition, $("#divPosition"));
-                calcRoute(event.latLng);
+                //calcRoute(event.latLng);
+
             });
     }
 
