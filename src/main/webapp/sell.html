@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link href="css/gih.css" rel="stylesheet">
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,27 +21,71 @@
 <body>
 <div class="container">
     <div class="navbar">
-    <ul class="nav nav-pills" >
-        <li role="presentation"><a href="index.html">Nearby</a></li>
-        <li role="presentation" class="active" ><a href="sell.html">Sell</a></li>
-        <li role="presentation" class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                Account <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="selling.html">Selling</a></li>
-                <li><a href="buying.html">Buying</a></li>
-                <li><a href="queuing.html">Queuing</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-</div></div>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="index.html">Nearby</a></li>
+            <li role="presentation" class="active"><a href="sell.html">Sell</a></li>
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                    Account <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="selling.html">Selling</a></li>
+                    <li><a href="buying.html">Buying</a></li>
+                    <li><a href="queuing.html">Queuing</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<form role="form" method="post" action="sellThis.action">
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-4">
+                <div class="fileinput fileinput-new pull-right " data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;">
+                        <img src="img/camerablack.png" alt="">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail"
+                         style="max-width: 100px; max-height: 100px;"></div>
+                    <div>
+                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span
+                                class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 text-right">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+        <div class="form-group">
+            <input class="form-control" id="title" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="details" placeholder="Details"></textarea>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="price" placeholder="$">
+        </div>
+        <button type="submit" class="btn btn-default" id="submit" value="SUBMIT">Submit</button>
+
+    </div>
+</form>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="dist/js/bootstrap.min.js"></script>
+<script src="js/jasny-bootstrap.min.js"></script>
 </body>
 </html>
