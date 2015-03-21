@@ -51,9 +51,9 @@ public class ApiActions {
         return true;
     }
     
-    @RequestMapping(value="find", method=RequestMethod.POST, consumes="application/json")
+    @RequestMapping(value="find", method=RequestMethod.POST, produces="application/json")
     @ResponseBody()
-    public Collection<String> findPointForApplication(@RequestParam BigDecimal xPosition,
+    public Collection<Map<String,Object>> findPointForApplication(@RequestParam BigDecimal xPosition,
                                @RequestParam BigDecimal yPosition,
                                @RequestParam String start,
                                @RequestParam String end,
@@ -62,7 +62,7 @@ public class ApiActions {
         return findPointFor(xPosition, yPosition, start, end, keywords, buyOrSell);
     }
 
-    private Collection<String> findPointFor(@RequestParam BigDecimal xPosition,
+    private Collection<Map<String,Object>> findPointFor(@RequestParam BigDecimal xPosition,
                                             @RequestParam BigDecimal yPosition,
                                             @RequestParam String start,
                                             @RequestParam String end,

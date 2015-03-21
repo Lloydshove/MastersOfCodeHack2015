@@ -33,7 +33,7 @@ public class FindAction {
         this.db = db;
     }
 
-    public Collection<String> execute(){
+    public Collection<Map<String,Object>> execute(){
         log.debug("Keywords = "+keywords);
 
         MongoCollection<Document> coll = db.getCollection("clientLocations");
@@ -76,9 +76,12 @@ public class FindAction {
 
         FindIterable<Document> locations= coll.find(allSubQuery);
 
-        Collection<String> results = new HashSet<>();
+        Collection<Map<String,Object>> results = new HashSet<>();
         for(Document location : locations) {
-            results.add((String)location.get("customerId"));
+            Map<String,Object> result = new HashMap();
+            result.put("customer",location.get("customerId"));
+            result.put("keyword",location.get("keyword"));
+            results.add(result);
         }
         return results;
     }
