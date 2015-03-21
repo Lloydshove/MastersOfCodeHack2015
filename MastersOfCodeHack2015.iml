@@ -67,7 +67,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.eclipse.jetty:jetty-websocket:8.1.15.v20140411" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: rhino:js:1.6R5" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: nekohtml:nekohtml:0.9.5" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: javax.servlet:servlet-api:2.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: net.sf.jtidy:jtidy:r938" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: xerces:xmlParserAPIs:2.6.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: xalan:serializer:2.7.1" level="project" />
@@ -77,5 +76,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.eclipse.jetty:jetty-http:8.1.15.v20140411" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: xerces:xerces:2.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: xml-apis:xml-apis:1.4.01" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: javax.servlet:servlet-api:2.4" level="project" />
   </component>
 </module>
