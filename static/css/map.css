@@ -1,16 +1,20 @@
-body{
+html {
+    /*height: 100%;*/
+}
+
+body {
+    padding: 10px;
+    /*height: 100%;*/
+}
+
+div .row {
     padding: 10px;
 }
 
-div .row{
-    padding: 10px;
+div #googleMap {
+    height: 380px;;
 }
 
-div #googleMap{
-    height: 380px;
-;
-}
-
-div .row a{
-    width:100%;
+div .row a {
+    width: 100%;
 }
