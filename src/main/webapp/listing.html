@@ -39,6 +39,19 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+    <div class="thumbnail">
+        <img alt="..." id="someImage">
+        <div class="caption">
+            <h3 id="titleHere"></h3>
+            <p id="sellerHere"></p>
+            <p id="descriptionHere"></p>
+        </div>
+    </div>
+    </div>
+</div>
+
 <div id="listing"></div>
 
 
@@ -59,6 +72,8 @@
 
 
     $(document).ready(function () {
+        $('#someImage').attr("src", 'upload/'+getUrlId()+'.jpg');
+
         $.ajax({
             url: 'dynamic/api/getById?id=' + getUrlId(),
             method: "POST"
@@ -69,11 +84,9 @@
 
     function render(jsonResponse) {
         var result = jsonResponse[0]
-        $("#listing").append('<div class="jumbotron">'+
-        '<h2>'+result.title+'</h1>'+
-        '<p>Seller : '+result.customer+'</p>'+
-        '<p>'+result.keyword+'</p>'+
-        '</div>');
+        $("#titleHere").html(result.title);
+        $("#sellerHere").html('<p>Seller : '+result.customer+'</p>');
+        $("#descriptionHere").html('<p>Seller : '+result.keyword+'</p>');
     }
 </script>
 </body>
