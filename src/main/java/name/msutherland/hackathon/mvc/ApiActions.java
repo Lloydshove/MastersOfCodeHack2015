@@ -1,0 +1,74 @@
+package name.msutherland.hackathon.mvc;
+
+import name.msutherland.hackathon.backend.BuyOrSell;
+import name.msutherland.hackathon.backend.FindAction;
+import name.msutherland.hackathon.backend.InsertAction;
+import name.msutherland.hackathon.backend.MongoConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+@RequestMapping("api")
+public class ApiActions {
+    
+    private final Logger log = LogManager.getLogger(ApiActions.class);
+    private final MongoConnection mongoConnection;
+    
+    public ApiActions(MongoConnection mongoConnection){
+        log.debug("Created");
+        this.mongoConnection = mongoConnection;
+    }
+
+    @RequestMapping("hello")
+    @ResponseBody
+    public String hello() {
+        return "Hello Cruel World";
+    }
+
+    @RequestMapping("insert")
+    @ResponseBody
+    public Boolean insertPoint(@RequestParam String customerId,
+                               @RequestParam BigDecimal xPosition,
+                               @RequestParam BigDecimal yPosition,
+                               @RequestParam String start,
+                               @RequestParam String end,
+                               @RequestParam List<String> keywords,
+                               @RequestParam BuyOrSell buyOrSell){
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");
+        DateTime startDate = formatter.parseDateTime(start);
+        DateTime endDate = formatter.parseDateTime(end);
+        InsertAction action = new InsertAction(customerId, xPosition, yPosition, startDate.toDate(), endDate.toDate(), keywords, buyOrSell, mongoConnection.getDb());
+        action.execute();
+        return true;
+    }
+
+    @RequestMapping("find")
+    @ResponseBody
+    public Collection<String> findPoint(@RequestParam BigDecimal xPosition,
+                               @RequestParam BigDecimal yPosition,
+                               @RequestParam String start,
+                               @RequestParam String end,
+                               @RequestParam List<String> keywords,
+                               @RequestParam BuyOrSell buyOrSell){
+        log.debug("Keywords = "+keywords);
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");
+        DateTime startDate = formatter.parseDateTime(start);
+        DateTime endDate = formatter.parseDateTime(end);
+
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), keywords, buyOrSell, mongoConnection.getDb());
+        return action.execute();
+    }
+}

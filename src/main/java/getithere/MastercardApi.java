@@ -1,12 +1,10 @@
 package getithere;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.eclipse.jetty.util.StringUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +12,6 @@ import java.io.InputStreamReader;
 
 import static java.lang.String.valueOf;
 import static java.lang.System.currentTimeMillis;
-import static org.apache.commons.lang3.StringUtils.rightPad;
 
 public class MastercardApi {
 

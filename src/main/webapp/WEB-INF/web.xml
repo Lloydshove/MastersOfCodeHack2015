@@ -3,12 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
-        <display-name>StaticServlet</display-name>
-        <servlet-name>StaticServlet</servlet-name>
-        <servlet-class>kibana.webserver.StaticServlet</servlet-class>
+        <servlet-name>sample</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+        </init-param>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>name.msutherland.hackathon.mvc</param-value>
+        </init-param>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>StaticServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>sample</servlet-name>
+        <url-pattern>/dynamic</url-pattern>
     </servlet-mapping>
 </web-app>
