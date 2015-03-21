@@ -2,6 +2,7 @@
   <library name="Gradle: com.sun.xml.bind:jaxb:2.1.9">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.xml.bind/jaxb/2.1.9/57a933840c51305bd1db89d2384bd66d2e300b0a/jaxb-2.1.9.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.xml.bind/jaxb/2.1.9/57a933840c51305bd1db89d2384bd66d2e300b0a/jaxb-2.1.9.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
