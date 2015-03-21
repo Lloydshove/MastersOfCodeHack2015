@@ -42,7 +42,7 @@ public class TestApi {
     @Test
     public void submitInsert2() throws Exception {
 
-        submitStandard("Mr Big", "Size 1 baby shoes.  Designed Minolo Blahnic's.  Brand New.  3 inch heels.", "New Baby Shoes, minolo blahnic.  Bargain");
+        submitStandard("Mr Big", "Size 1 baby shoes.  Designer Minolo Blahnic's.  Brand New.  3 inch heels.", "New Baby Shoes, minolo blahnic.  Bargain");
         submitStandard("M. Thatcher", "British Telecom, Royal Mail, National Rail and large parts of NHS MUST GO!  All at rock bottom prices", "Old public services");
         submitStandard("J R Hartley", "Looking back on a lifetime of great fishing, the British angler shares his fondest memories of fly fishing in the chalk streams, spate rivers, and lochs of his native country.", "Second hand book - Fly Fishing");
     }

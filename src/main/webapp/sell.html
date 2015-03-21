@@ -26,13 +26,15 @@
 </head>
 <body>
 
-<div id="mapLightbox" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="mapLightboxLabel">
+<div id="mapLightbox" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+     aria-labelledby="mapLightboxLabel">
     <div class="modal-dialog">
         <div class='modal-content'>
             <div class='modal-body'>
 
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="mapLightboxLabel">Select the location</h4>
                 </div>
 
@@ -103,29 +105,40 @@
         <div class="form-group">
             <input class="form-control" id="title" placeholder="Title">
         </div>
-        <div class="form-group">
+        <div class="form-group" hidden="true">
             <textarea class="form-control" name="customerId" placeholder="CustomerId"></textarea>
         </div>
-        <div class="form-group">
-            <input class="form-control" name="xPosition" placeholder="xPosition - click to set position" readonly="readonly">
+        <div class="form-group" hidden="true">
+            <input class="form-control" name="xPosition" placeholder="xPosition">
         </div>
-        <div class="form-group">
-            <input class="form-control" name="yPosition" placeholder="yPosition - click to set position" readonly="readonly">
+        <div class="form-group" hidden="true">
+            <input class="form-control" name="yPosition" placeholder="yPosition">
         </div>
-        <div class="form-group">
+        <div class="form-group" hidden="true">
             <input class="form-control input-group date" id="start" name="start" placeholder="start">
         </div>
-        <div class="form-group">
+        <div class="form-group" hidden="true">
             <input class="form-control" id="end" name="end" placeholder="end">
         </div>
         <div class="form-group">
-            <input class="form-control" name="keywords" placeholder="keywords">
+            <textarea class="form-control" name="keywords" placeholder="Description"></textarea>
         </div>
         <div class="form-group">
+            <input class="form-control" name="price" placeholder="Price">
+        </div>
+        <div class="form-group" hidden="true">
             <input class="form-control" name="buyOrSell" placeholder="buyOrSell">
         </div>
-        <button type="submit" class="btn btn-default" id="submit" value="SUBMIT">Submit</button>
-
+        <row>
+            <div class="col-md-10 col-xs-8" style="padding-left:0">
+                <button type="submit" class="btn btn-default btn-lg" id="submit" value="SUBMIT">Submit</button>
+            </div>
+            <div class="col-md-2 col-xs-4">
+                <button type="button" class="btn btn-default" onclick="popUpMapPage()">
+                    <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>Where?
+                </button>
+            </div>
+        </row>
     </div>
 </form>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
