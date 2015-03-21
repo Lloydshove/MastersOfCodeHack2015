@@ -19,6 +19,6 @@
 
     <servlet-mapping>
         <servlet-name>sample</servlet-name>
-        <url-pattern>/dynamic</url-pattern>
+        <url-pattern>/dynamic/*</url-pattern>
     </servlet-mapping>
 </web-app>

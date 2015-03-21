@@ -17,7 +17,7 @@ public class WebConfig {
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver =
                 new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/view/");
+        resolver.setPrefix("/WEB-INF/api/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
