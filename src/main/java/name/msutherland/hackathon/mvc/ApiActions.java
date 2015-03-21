@@ -59,22 +59,31 @@ public class ApiActions {
                                @RequestParam String end,
                                @RequestParam List<String> keywords,
                                @RequestParam BuyOrSell buyOrSell){
-        return findPointFor(xPosition, yPosition, start, end, keywords, buyOrSell);
-    }
 
-    private Collection<Map<String,Object>> findPointFor(@RequestParam BigDecimal xPosition,
-                                            @RequestParam BigDecimal yPosition,
-                                            @RequestParam String start,
-                                            @RequestParam String end,
-                                            @RequestParam List<String> keywords,
-                                            @RequestParam BuyOrSell buyOrSell){
-        log.debug("Keywords = "+keywords);
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");
         DateTime startDate = formatter.parseDateTime(start);
         DateTime endDate = formatter.parseDateTime(end);
 
-        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), keywords, buyOrSell, mongoConnection.getDb());
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb());
+        action.setKeywords(keywords);
+        return action.execute();
+    }
+
+    @RequestMapping(value="findAllNearby", method=RequestMethod.POST, produces="application/json")
+    @ResponseBody()
+    public Collection<Map<String,Object>> findAllNearby(@RequestParam BigDecimal xPosition,
+                                                                  @RequestParam BigDecimal yPosition,
+                                                                  @RequestParam String start,
+                                                                  @RequestParam String end,
+                                                                  @RequestParam BuyOrSell buyOrSell){
+
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");
+        DateTime startDate = formatter.parseDateTime(start);
+        DateTime endDate = formatter.parseDateTime(end);
+
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb());
         return action.execute();
     }
 }

@@ -19,18 +19,21 @@ public class FindAction {
     private final BigDecimal yPosition;
     private final Date start;
     private final Date end;
-    private final Collection<String> keywords;
+    private Collection<String> keywords;
     private final BuyOrSell buyOrSell;
     private final MongoDatabase db;
 
-    public FindAction(BigDecimal xPosition, BigDecimal yPosition, Date start, Date end, Collection<String> keywords, BuyOrSell buyOrSell, MongoDatabase db) {
+    public FindAction(BigDecimal xPosition, BigDecimal yPosition, Date start, Date end, BuyOrSell buyOrSell, MongoDatabase db) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.start = start;
         this.end = end;
-        this.keywords = keywords;
         this.buyOrSell = buyOrSell;
         this.db = db;
+    }
+    
+    public void setKeywords(Collection<String> keywords){
+        this.keywords = keywords;
     }
 
     public Collection<Map<String,Object>> execute(){
@@ -69,8 +72,10 @@ public class FindAction {
         queries.add(dateQueryEnd);
         queries.add(locationQuery);
         queries.add(buyOrSellQuery);
-        for(String keyword : keywords) {
-            queries.add(new Document("keyword",keyword));
+        if(keywords!=null) {
+            for (String keyword : keywords) {
+                queries.add(new Document("keyword", keyword));
+            }
         }
         Document allSubQuery = new Document("$and", queries);
 
@@ -81,6 +86,9 @@ public class FindAction {
             Map<String,Object> result = new HashMap();
             result.put("customer",location.get("customerId"));
             result.put("keyword",location.get("keyword"));
+            Document coordinatesOut = (Document)((Document) location.get("loc")).get("coordinates");
+            result.put("xPosition",coordinatesOut.get("0"));
+            result.put("yPosition",coordinatesOut.get("1"));
             results.add(result);
         }
         return results;

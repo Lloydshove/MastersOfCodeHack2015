@@ -58,4 +58,20 @@ public class TestApi {
         System.out.println(client.getPage(req).getWebResponse().getContentAsString());
     }
 
+
+    @Test
+    public void submitFindAllNearby() throws Exception {
+        WebClient client = new WebClient();
+        WebRequest req = new WebRequest(new URL("http://127.0.0.1:8080/dynamic/api/findAllNearby"), HttpMethod.POST);
+        req.setAdditionalHeader("Accept", "application/json");
+        List<NameValuePair> requestParams = new ArrayList<>();
+        requestParams.add(new NameValuePair("xPosition","0.1"));
+        requestParams.add(new NameValuePair("yPosition","0"));
+        requestParams.add(new NameValuePair("start","01011000010101"));
+        requestParams.add(new NameValuePair("end","01011300010101"));
+        requestParams.add(new NameValuePair("buyOrSell","BUY"));
+        req.setRequestParameters(requestParams);
+        System.out.println(client.getPage(req).getWebResponse().getContentAsString());
+    }
+
 }
