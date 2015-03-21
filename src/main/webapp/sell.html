@@ -21,23 +21,24 @@
 <body>
 <div class="container">
     <div class="navbar">
-    <ul class="nav nav-pills" >
-        <li role="presentation"><a href="index.html">Nearby</a></li>
-        <li role="presentation" class="active" ><a href="sell.html">Sell</a></li>
-        <li role="presentation" class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                Account <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="selling.html">Selling</a></li>
-                <li><a href="buying.html">Buying</a></li>
-                <li><a href="queuing.html">Queuing</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-</div></div>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="index.html">Nearby</a></li>
+            <li role="presentation" class="active"><a href="sell.html">Sell</a></li>
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                    Account <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="selling.html">Selling</a></li>
+                    <li><a href="buying.html">Buying</a></li>
+                    <li><a href="queuing.html">Queuing</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
 <form role="form" method="post" action="sellThis.action">
 
     <div class="container-fluid">
@@ -50,9 +51,11 @@
                     <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;">
                         <img src="img/camerablack.png" alt="">
                     </div>
-                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px; max-height: 100px;"></div>
+                    <div class="fileinput-preview fileinput-exists thumbnail"
+                         style="max-width: 100px; max-height: 100px;"></div>
                     <div>
-                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span
+                                class="fileinput-exists">Change</span><input type="file" name="..."></span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                     </div>
                 </div>
@@ -66,16 +69,16 @@
 
     <div class="container">
 
-            <div class="form-group">
-                <input class="form-control" id="title" placeholder="Title">
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" id="details" placeholder="Details"></textarea>
-            </div>
-            <div class="form-group">
-                <input class="form-control" id="price" placeholder="$">
-            </div>
-            <button type="submit" class="btn btn-default" id="submit" value="SUBMIT">Submit</button>
+        <div class="form-group">
+            <input class="form-control" id="title" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="details" placeholder="Details"></textarea>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="price" placeholder="$">
+        </div>
+        <button type="submit" class="btn btn-default" id="submit" value="SUBMIT">Submit</button>
 
     </div>
 </form>
