@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 
+import static name.msutherland.hackathon.backend.MongoConnection.HOST;
+import static name.msutherland.hackathon.backend.MongoConnection.PORT;
+
 public class InsertActionTest{
     
     private static MongoClient mongoClient;
@@ -17,7 +20,7 @@ public class InsertActionTest{
     
     @BeforeClass
     public static void beforeClass(){
-        mongoClient = new MongoClient( "10.1.2.5" , 27017 );
+        mongoClient = new MongoClient(HOST, PORT);
         db = mongoClient.getDatabase("mydb");
     }
     

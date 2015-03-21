@@ -39,7 +39,7 @@
         </ul>
     </div>
 </div>
-<form role="form" method="post" action="sellThis.action">
+<form role="form" method="post" action="dynamic/api/insert">
 
     <div class="container-fluid">
         <div class="row">
@@ -73,12 +73,35 @@
             <input class="form-control" id="title" placeholder="Title">
         </div>
         <div class="form-group">
-            <textarea class="form-control" id="details" placeholder="Details"></textarea>
+            <textarea class="form-control" name="customerId" placeholder="CustomerId"></textarea>
         </div>
         <div class="form-group">
-            <input class="form-control" id="price" placeholder="$">
+            <input class="form-control" name="xPosition" placeholder="xPosition">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="yPosition" placeholder="yPosition">
+        </div>
+        <div class="form-group">
+            <input class="form-control input-group date" id="start" name="start" placeholder="start">
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="end" name="end" placeholder="end">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="keywords" placeholder="keywords">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="buyOrSell" placeholder="buyOrSell">
         </div>
         <button type="submit" class="btn btn-default" id="submit" value="SUBMIT">Submit</button>
+
+        <script type="text/javascript">
+$(function () {
+$('#start').datetimepicker({
+format: 'ddMMyyyyHHmmss'
+});
+});
+</script>
 
     </div>
 </form>
