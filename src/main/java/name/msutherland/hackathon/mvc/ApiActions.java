@@ -1,9 +1,6 @@
 package name.msutherland.hackathon.mvc;
 
-import name.msutherland.hackathon.backend.BuyOrSell;
-import name.msutherland.hackathon.backend.FindAction;
-import name.msutherland.hackathon.backend.InsertAction;
-import name.msutherland.hackathon.backend.MongoConnection;
+import name.msutherland.hackathon.backend.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
@@ -44,12 +41,13 @@ public class ApiActions {
                                @RequestParam String start,
                                @RequestParam String end,
                                @RequestParam List<String> keywords,
+                               @RequestParam String title,
                                @RequestParam BuyOrSell buyOrSell){
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");
         DateTime startDate = formatter.parseDateTime(start);
         DateTime endDate = formatter.parseDateTime(end);
-        InsertAction action = new InsertAction(customerId, xPosition, yPosition, startDate.toDate(), endDate.toDate(), keywords, buyOrSell, mongoConnection.getDb());
+        InsertAction action = new InsertAction(customerId, xPosition, yPosition, startDate.toDate(), endDate.toDate(), keywords, title, buyOrSell, mongoConnection.getDb());
         action.execute();
         return true;
     }
@@ -87,6 +85,14 @@ public class ApiActions {
         DateTime endDate = formatter.parseDateTime(end);
 
         FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb());
+        return action.execute();
+    }
+
+    @RequestMapping(value="getById", method=RequestMethod.POST, produces="application/json")
+    @ResponseBody()
+    public Collection<Map<String,Object>> getById(@RequestParam String id){
+
+        GetAction action = new GetAction(id, mongoConnection.getDb());
         return action.execute();
     }
 }

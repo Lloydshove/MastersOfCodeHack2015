@@ -30,7 +30,7 @@ public class FindActionTest {
         db = mongoClient.getDatabase("mydb");
 
         InsertAction action = new InsertAction("customerId", new BigDecimal(0), new BigDecimal(0), new Date(), new Date(),
-                Collections.singletonList("Alpha"), BuyOrSell.SELL, db
+                Collections.singletonList("Alpha"), "title", BuyOrSell.SELL, db
         );
         action.execute();
     }
