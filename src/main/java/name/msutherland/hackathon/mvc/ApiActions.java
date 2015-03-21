@@ -9,15 +9,12 @@ import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("api")
 public class ApiActions {
@@ -53,15 +50,24 @@ public class ApiActions {
         action.execute();
         return true;
     }
-
-    @RequestMapping("find")
-    @ResponseBody
-    public Collection<String> findPoint(@RequestParam BigDecimal xPosition,
+    
+    @RequestMapping(value="find", method=RequestMethod.POST, consumes="application/json")
+    @ResponseBody()
+    public Collection<String> findPointForApplication(@RequestParam BigDecimal xPosition,
                                @RequestParam BigDecimal yPosition,
                                @RequestParam String start,
                                @RequestParam String end,
                                @RequestParam List<String> keywords,
                                @RequestParam BuyOrSell buyOrSell){
+        return findPointFor(xPosition, yPosition, start, end, keywords, buyOrSell);
+    }
+
+    private Collection<String> findPointFor(@RequestParam BigDecimal xPosition,
+                                            @RequestParam BigDecimal yPosition,
+                                            @RequestParam String start,
+                                            @RequestParam String end,
+                                            @RequestParam List<String> keywords,
+                                            @RequestParam BuyOrSell buyOrSell){
         log.debug("Keywords = "+keywords);
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");

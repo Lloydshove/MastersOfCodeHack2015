@@ -10,6 +10,7 @@ repositories {
 }
 
 jettyRun{
+    contextPath "/"
     stopPort 8081
     stopKey "K"
 }
