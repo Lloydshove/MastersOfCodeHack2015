@@ -57,12 +57,6 @@ function initialize() {
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function loadScript() {
-    var script = document.createElement("script");
-    script.src = "http://maps.googleapis.com/maps/api/js?callback=initialize";
-    document.body.appendChild(script);
-}
-
 $(document).ready(function () {
         $('#btnUseCurrentPosition').click(function () {
             if (typeof window.opener != undefined) {
