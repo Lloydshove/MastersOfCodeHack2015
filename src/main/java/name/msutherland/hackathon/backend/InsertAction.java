@@ -51,8 +51,8 @@ public class InsertAction {
         coll.createIndex(new Document("description", 1));
         
         Document coordinates = new Document();
-        coordinates.put("0", xPosition.doubleValue());
-        coordinates.put("1", yPosition.doubleValue());
+        coordinates.put("0", yPosition.doubleValue());
+        coordinates.put("1", xPosition.doubleValue());
 
         coll.insertOne(new Document("id", UUID.randomUUID())
                 .append("loc", new Document("type", "Point").append("coordinates", coordinates))
