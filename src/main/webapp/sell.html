@@ -111,7 +111,7 @@
             <input class="form-control" name="title" placeholder="Title">
         </div>
         <div class="form-group" hidden="true">
-            <textarea class="form-control" name="customerId" placeholder="CustomerId" value="Me!"></textarea>
+            <textarea class="form-control" name="customerId" placeholder="customerId" id="customerId">Me</textarea>
         </div>
         <div class="form-group" hidden="true">
             <input class="form-control data-fv-trigger" name="xPosition" placeholder="xPosition">
@@ -216,14 +216,6 @@
                     }
                 },
                 yPosition: {
-                    trigger: 'change',
-                    validators: {
-                        notEmpty: {
-                            message: 'location is required'
-                        }
-                    }
-                },
-                xPosition: {
                     trigger: 'change',
                     validators: {
                         notEmpty: {
