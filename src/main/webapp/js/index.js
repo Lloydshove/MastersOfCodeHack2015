@@ -1,6 +1,7 @@
 var map;
 var marker;
 var supermarketIcon = "../img/supermarket.png";
+var currentlyOpenedInfoWindow;
 
 var myPosition = {
     coords: {
@@ -88,7 +89,20 @@ $(document).ready(function () {
     }
 );
 
-function goToListingPage(url){
+function highlightOneButton(button) {
+    $(".highlighted").removeClass("highlighted");
+    button.addClass("highlighted");
+}
+
+function setInfoWindowForMarker(infowindow, marker) {
+    if (typeof currentlyOpenedInfoWindow !== 'undefined') {
+        currentlyOpenedInfoWindow.close();
+    }
+    infowindow.open(map, marker);
+    currentlyOpenedInfoWindow = infowindow;
+}
+
+function goToListingPage(url) {
     document.location.href = url;
 }
 
@@ -101,7 +115,7 @@ function renderNearby(jsonResponse) {
         // alert('keyword: ' + result.keyword + ' cust:' + result.customer);
         var url = 'listing.html?id=' + result.id;
 
-        var button = $( '<a href="' + url + '" class="list-group-item">' +
+        var button = $('<a href="' + url + '" class="list-group-item">' +
         '<h4 class="list-group-item-heading">' + result.title + '</h4>' +
         '<p class="list-group-item-text">Seller : ' + result.customer + '</p>' +
         '</a>');
@@ -110,17 +124,35 @@ function renderNearby(jsonResponse) {
         var generatedMarker = setMarkerWithIcon(new google.maps.LatLng(result.yPosition, result.xPosition), supermarketIcon);
         //var generatedMarker = setMarker(new google.maps.LatLng(result.yPosition, result.xPosition));
 
+        var infowindow = new google.maps.InfoWindow();
+        //infowindow.setContent("Click here for details - " + result.title + " by " + result.customer);
+        infowindow.setContent('<a href="' + url + '" class="btn btn-primary">' +
+        'Click here for details - ' + result.title + ' by ' + result.customer +
+        '</a>');
+
+        google.maps.event.addListener(infowindow,'closeclick',function(){
+            $(".highlighted").removeClass("highlighted");
+        });
+
+        /*google.maps.event.addListener(infowindow, "click", function (e) {
+            e.preventDefault();
+            goToListingPage(url);`
+        });*/
+
         google.maps.event.addListener(generatedMarker, "click", function () {
-            goToListingPage(url);
+            highlightOneButton(button);
+            return setInfoWindowForMarker(infowindow, generatedMarker);
         });
 
-        google.maps.event.addListener(generatedMarker, "mouseover", function () {
-            button.addClass("highlighted");
-        });
+        /*
+         google.maps.event.addListener(generatedMarker, "mouseover", function () {
+         //button.addClass("highlighted");
+         });
 
-        google.maps.event.addListener(generatedMarker, "mouseout", function () {
-            button.removeClass("highlighted");
-        });
+         google.maps.event.addListener(generatedMarker, "mouseout", function () {
+         //$(".highlighted").removeClass("highlighted");
+         });
+         */
 
     });
     nearbyList.append('</ul>');

@@ -1,5 +1,10 @@
-div #googleMap {
-    height: 300px;
+body{
+    overflow-y: hidden;
+}
+
+.y-scrollable {
+    overflow-y: auto;
+    max-height: 35%;
 }
 
 div .mapRow {
@@ -11,4 +16,21 @@ a.list-group-item.highlighted {
     color: #555;
     text-decoration: none;
     background-color: #f5f5f5;
+}
+
+#mapHolderWell{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%;
+    margin: 7px;
+}
+
+#mapHolderWell div{
+    height: 100%;
+}
+
+#googleMap {
+    height: 100%;
 }
