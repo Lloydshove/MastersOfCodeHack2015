@@ -111,5 +111,13 @@ $(document).ready(function () {
         $("[name=yPosition]").change();
 
         $('#mapLightbox').modal('hide');
-    })
+    });
+
+    $('.modal').on('shown.bs.modal', function(){
+        if ((typeof map) !== 'undefined') {
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(convertPositionToGoogleLatLng(myPosition));
+        }
+    });
+
 });
