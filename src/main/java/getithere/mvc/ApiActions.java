@@ -68,7 +68,7 @@ public class ApiActions {
         DateTime startDate = formatter.parseDateTime(start);
         DateTime endDate = formatter.parseDateTime(end);
 
-        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 500);
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 5000);
         action.setKeywords(keywords);
         return action.execute();
     }
@@ -86,7 +86,7 @@ public class ApiActions {
         DateTime startDate = formatter.parseDateTime(start);
         DateTime endDate = formatter.parseDateTime(end);
 
-        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 500);
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 5000);
         return action.execute();
     }
 

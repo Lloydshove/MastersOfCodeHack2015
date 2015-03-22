@@ -50,7 +50,7 @@ public class TestApi {
         submitStandard("Darcy Cross", "Yet More Book.", "Second hand book - Yet More Book", "114.1754545954149", "21.99766689490731");
     }
 
-    private void submitStandard(String customer, String keywords, String title, String xPosition, String yPosition) throws java.io.IOException {
+    private void submitStandard(String customer, String keywords, String title, String yPosition, String xPosition) throws java.io.IOException {
         String start = "01011000010101";
         String end = "01011300010101";
         WebClient client = new WebClient();
