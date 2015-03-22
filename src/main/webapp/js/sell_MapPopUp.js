@@ -107,6 +107,9 @@ $(document).ready(function () {
         //}
         $("[name=xPosition]").val(myPosition.coords.latitude);
         $("[name=yPosition]").val(myPosition.coords.longitude);
+        $("[name=xPosition]").change();
+        $("[name=yPosition]").change();
+
         $('#mapLightbox').modal('hide');
     })
 });

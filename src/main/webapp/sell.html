@@ -73,7 +73,11 @@
         </ul>
     </div>
 </div>
-<form role="form" method="post" id="sellForm" action="http://localhost:8080/dynamic/api/insert">
+<form role="form" method="post" id="sellForm" action="http://localhost:8080/dynamic/api/insert"
+      data-fv-framework="bootstrap"
+      data-fv-icon-valid="glyphicon glyphicon-ok"
+      data-fv-icon-invalid="glyphicon glyphicon-remove"
+      data-fv-icon-validating="glyphicon glyphicon-refresh" >
 
     <div class="container-fluid">
         <div class="row">
@@ -107,13 +111,13 @@
             <input class="form-control" name="title" placeholder="Title">
         </div>
         <div class="form-group" hidden="true">
-            <textarea class="form-control" name="customerId" placeholder="CustomerId"></textarea>
+            <textarea class="form-control" name="customerId" placeholder="CustomerId" value="Me!"></textarea>
         </div>
         <div class="form-group" hidden="true">
-            <input class="form-control" name="xPosition" placeholder="xPosition">
+            <input class="form-control data-fv-trigger" name="xPosition" placeholder="xPosition">
         </div>
         <div class="form-group" hidden="true">
-            <input class="form-control" name="yPosition" placeholder="yPosition">
+            <input class="form-control data-fv-trigger" name="yPosition" placeholder="yPosition">
         </div>
         <div class="form-group" hidden="true">
             <input class="form-control input-group date" id="start" name="start" placeholder="start" value="01011000010101">
@@ -130,12 +134,17 @@
         <div class="form-group" hidden="true">
             <input class="form-control" name="buyOrSell" placeholder="buyOrSell" value="BUY">
         </div>
+        <div class="form-group">
+            <div class="form-group col-xs-9">
+                <div id="messages"></div>
+            </div>
+        </div>
         <row>
             <div class="col-md-10 col-xs-8" style="padding-left:0">
                 <button type="submit" class="btn btn-default btn-lg" id="submitButton">Submit</button>
             </div>
             <div class="col-md-2 col-xs-4">
-                <button type="button" class="btn btn-default" onclick="popUpMapPage()">
+                <button type="button" class="btn btn-default form-control" name="location" onclick="popUpMapPage()">
                     <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>Where?
                 </button>
             </div>
@@ -172,6 +181,10 @@
     $(document).ready(function() {
         $('#sellForm').formValidation({
             framework: 'bootstrap',
+            excluded: [],
+            err: {
+                container: '#messages'
+            },
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -195,24 +208,26 @@
                 price: {
                     validators: {
                         notEmpty: {
-                            message: 'The price is required'
+                            message: 'price is required'
                         },
                         numeric:{
-                            message: 'Price must be a number'
+                            message: 'price must be a number'
                         }
                     }
                 },
-                xPosition:{
+                yPosition: {
+                    trigger: 'change',
                     validators: {
                         notEmpty: {
-                            message: 'Please select at least one location to sell this item from'
+                            message: 'location is required'
                         }
                     }
                 },
-                yPosition:{
+                xPosition: {
+                    trigger: 'change',
                     validators: {
                         notEmpty: {
-                            message: 'Please select at least one location to sell this item from'
+                            message: 'location is required'
                         }
                     }
                 }
