@@ -12,30 +12,17 @@ div .mapRow {
     padding-right: 10px;
 }
 
-a.list-group-item.highlighted {
+div.list-group-item.highlighted {
     color: #555;
     text-decoration: none;
     background-color: #f5f5f5;
-}
-
-#mapHolderWell{
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 50%;
-    margin: 7px;
-}
-
-#mapHolderWell > div{
-    height: 100%;
 }
 
 #googleMap {
     height: 300px;
 }
 
-a span img {
+span img {
     max-width: 48px;
     max-height: 48px;
 }

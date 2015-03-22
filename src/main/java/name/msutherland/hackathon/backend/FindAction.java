@@ -22,14 +22,16 @@ public class FindAction {
     private Collection<String> keywords;
     private final BuyOrSell buyOrSell;
     private final MongoDatabase db;
+    private final int maxDistance;
 
-    public FindAction(BigDecimal xPosition, BigDecimal yPosition, Date start, Date end, BuyOrSell buyOrSell, MongoDatabase db) {
+    public FindAction(BigDecimal xPosition, BigDecimal yPosition, Date start, Date end, BuyOrSell buyOrSell, MongoDatabase db, int maxDistance) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.start = start;
         this.end = end;
         this.buyOrSell = buyOrSell;
         this.db = db;
+        this.maxDistance = maxDistance;
     }
 
     public void setKeywords(Collection<String> keywords) {
@@ -58,7 +60,7 @@ public class FindAction {
                                 new Document("$geometry",
                                         new Document("type", "Point")
                                                 .append("coordinates", coordinates))
-                                        .append("$maxDistance", 500)
+                                        .append("$maxDistance", maxDistance)
                         )
                 );
 

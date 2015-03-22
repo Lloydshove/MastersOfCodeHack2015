@@ -66,7 +66,7 @@ public class ApiActions {
         DateTime startDate = formatter.parseDateTime(start);
         DateTime endDate = formatter.parseDateTime(end);
 
-        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb());
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 500);
         action.setKeywords(keywords);
         return action.execute();
     }
@@ -84,7 +84,25 @@ public class ApiActions {
         DateTime startDate = formatter.parseDateTime(start);
         DateTime endDate = formatter.parseDateTime(end);
 
-        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb());
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 500);
+        return action.execute();
+    }
+
+
+    @RequestMapping(value="findAllFurther", method=RequestMethod.POST, produces="application/json")
+    @ResponseBody()
+    public Collection<Map<String,Object>> findAllFurther(@RequestParam BigDecimal xPosition,
+                                                        @RequestParam BigDecimal yPosition,
+                                                        @RequestParam String start,
+                                                        @RequestParam String end,
+                                                        @RequestParam BuyOrSell buyOrSell){
+
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("ddMMyyyyHHmmss");
+        DateTime startDate = formatter.parseDateTime(start);
+        DateTime endDate = formatter.parseDateTime(end);
+
+        FindAction action = new FindAction( xPosition, yPosition, startDate.toDate(), endDate.toDate(), buyOrSell, mongoConnection.getDb(), 20000);
         return action.execute();
     }
 

@@ -1,4 +1,4 @@
-div #googleMap {
+#googleMap {
     height: 300px;
 }
 
@@ -7,6 +7,6 @@ div .mapRow {
     padding-right: 10px;
 }
 
-div #btnUseCurrentPosition{
+#btnUseCurrentPosition {
     width: 100%;
 }

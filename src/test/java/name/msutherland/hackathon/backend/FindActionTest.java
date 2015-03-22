@@ -42,7 +42,7 @@ public class FindActionTest {
 
     @Test
     public void testExecuteWithNarrowDateRange() throws Exception {
-        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), new Date(), new Date(), BuyOrSell.SELL, db);
+        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), new Date(), new Date(), BuyOrSell.SELL, db, 500);
         Collection results = action.execute();
         assertThat(results.size(), equalTo(0));
     }
@@ -53,7 +53,7 @@ public class FindActionTest {
         DateTime start = formatter.parseDateTime("12/12/1000 00:00:00");
         DateTime end = formatter.parseDateTime("12/12/3000 00:00:00");
         
-        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), start.toDate(), end.toDate(), BuyOrSell.SELL, db);
+        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), start.toDate(), end.toDate(), BuyOrSell.SELL, db, 500);
         Collection results = action.execute();
         assertThat(results.isEmpty(),equalTo(false));
     }
@@ -64,7 +64,7 @@ public class FindActionTest {
         DateTime start = formatter.parseDateTime("12/12/1000 00:00:00");
         DateTime end = formatter.parseDateTime("12/12/3000 00:00:00");
 
-        FindAction action = new FindAction(new BigDecimal(44), new BigDecimal(44), start.toDate(), end.toDate(), BuyOrSell.SELL, db);
+        FindAction action = new FindAction(new BigDecimal(44), new BigDecimal(44), start.toDate(), end.toDate(), BuyOrSell.SELL, db, 500);
         Collection results = action.execute();
         assertThat(results.isEmpty(),equalTo(true));
     }
@@ -75,7 +75,7 @@ public class FindActionTest {
         DateTime start = formatter.parseDateTime("12/12/1000 00:00:00");
         DateTime end = formatter.parseDateTime("12/12/3000 00:00:00");
 
-        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), start.toDate(), end.toDate(),  BuyOrSell.BUY, db);
+        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), start.toDate(), end.toDate(),  BuyOrSell.BUY, db, 500);
         Collection results = action.execute();
         assertThat(results.isEmpty(),equalTo(true));
     }
@@ -86,7 +86,7 @@ public class FindActionTest {
         DateTime start = formatter.parseDateTime("12/12/1000 00:00:00");
         DateTime end = formatter.parseDateTime("12/12/3000 00:00:00");
 
-        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), start.toDate(), end.toDate(),  BuyOrSell.SELL, db);
+        FindAction action = new FindAction(new BigDecimal(0), new BigDecimal(0), start.toDate(), end.toDate(),  BuyOrSell.SELL, db, 500);
         action.setKeywords(Collections.singletonList("NeverEntered"));
         Collection results = action.execute();
         assertThat(results.isEmpty(),equalTo(true));

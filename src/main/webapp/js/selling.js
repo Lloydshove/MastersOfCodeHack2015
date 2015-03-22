@@ -1,6 +1,6 @@
 var map;
 var marker;
-var supermarketIcon = "../img/supermarket.png";
+var supermarketIcon = "../img/bank.png";
 var currentlyOpenedInfoWindow;
 
 var myPosition = {
@@ -49,7 +49,7 @@ function initialize() {
                     myPosition['coords'] = positionData.coords;
                     var mapProp = {
                         center: convertPositionToGoogleLatLng(myPosition),
-                        zoom: 16,
+                        zoom: 12,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     };
                     map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
@@ -58,10 +58,10 @@ function initialize() {
                     //setMarkerWithIcon(convertPositionToGoogleLatLng(myPosition), supermarketIcon);
 
                     $.ajax({
-                        url: 'http://localhost:8080/dynamic/api/findAllNearby?xPosition=' + myPosition['coords'].longitude + '&yPosition=' + myPosition['coords'].latitude + '&start=01011000010101&end=01011300010101&buyOrSell=BUY',
+                        url: 'http://localhost:8080/dynamic/api/findAllFurther?xPosition=' + myPosition['coords'].longitude + '&yPosition=' + myPosition['coords'].latitude + '&start=01011000010101&end=01011300010101&buyOrSell=BUY',
                         method: "POST"
                     }).done(function (msg) {
-                        renderNearby(msg);
+                        renderSelling(msg);
                     });
 
                     //setUpListeners();
@@ -70,10 +70,10 @@ function initialize() {
         } else {
             console.log("Geolocation is not supported by this browser.");
             $.ajax({
-                url: 'http://localhost:8080/dynamic/api/findAllNearby?xPosition=' + myPosition['coords'].longitude + '&yPosition=' + myPosition['coords'].latitude + '&start=01011000010101&end=01011300010101&buyOrSell=BUY',
+                url: 'http://localhost:8080/dynamic/api/findAllFurther?xPosition=' + myPosition['coords'].longitude + '&yPosition=' + myPosition['coords'].latitude + '&start=01011000010101&end=01011300010101&buyOrSell=BUY',
                 method: "POST"
             }).done(function (msg) {
-                renderNearby(msg);
+                renderSelling(msg);
             });
         }
     }
@@ -128,29 +128,31 @@ function goToListingPage(url) {
     document.location.href = url;
 }
 
-function renderNearby(jsonResponse) {
+function renderSelling(jsonResponse) {
     //alert(JSON.stringify(jsonResponse));
     var results = jsonResponse;
-    var nearbyList = $("#nearbyList");
-    nearbyList.append('<ul class="list-group">');
+    var sellingList = $("#sellingList");
+    sellingList.append('<ul class="list-group">');
     $.each(results, function (key, result) {
         // alert('keyword: ' + result.keyword + ' cust:' + result.customer);
-        var url = 'listing.html?id=' + result.id;
-
-        var button = $('<a href="' + url + '" class="list-group-item">' +
+        var button = $('<div class="list-group-item">' +
         '<span class="col-md-3 pull-right"><img src="../img/No_Image.png"></span>' +
         '<h4 class="list-group-item-heading">' + result.title + '</h4>' +
-        '<p class="list-group-item-text">Seller : ' + result.customer + '</p>' +
+        '<p class="list-group-item-text">Seller : ' + 'You' + '</p>' +
         '</a>');
-        button.appendTo($("#nearbyList"));
+        button.appendTo($("#sellingList"));
+
         var generatedMarker = setMarkerWithIcon(new google.maps.LatLng(result.yPosition, result.xPosition), supermarketIcon);
         //var generatedMarker = setMarker(new google.maps.LatLng(result.yPosition, result.xPosition));
         loadPreviewImage(result, button, generatedMarker);
 
+
         var infowindow = new google.maps.InfoWindow();
         //infowindow.setContent("Click here for details - " + result.title + " by " + result.customer);
+
+        var url = 'listing.html?id=' + result.id;
         infowindow.setContent('<a href="' + url + '" class="btn btn-primary">' +
-        'Click here for details - ' + result.title + ' by ' + result.customer +
+        'Click here for details - ' + result.title +
         '</a>');
 
         google.maps.event.addListener(infowindow, 'closeclick', function () {
@@ -178,5 +180,5 @@ function renderNearby(jsonResponse) {
          */
 
     });
-    nearbyList.append('</ul>');
+    sellingList.append('</ul>');
 }
