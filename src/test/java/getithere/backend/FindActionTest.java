@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -14,8 +14,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
-import static name.msutherland.hackathon.backend.MongoConnection.HOST;
-import static name.msutherland.hackathon.backend.MongoConnection.PORT;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 
@@ -26,7 +24,7 @@ public class FindActionTest {
 
     @BeforeClass
     public static void beforeClass(){
-        mongoClient = new MongoClient(HOST, PORT);
+        mongoClient = new MongoClient(MongoConnection.HOST, MongoConnection.PORT);
         db = mongoClient.getDatabase("mydb");
 
         InsertAction action = new InsertAction("customerId", new BigDecimal(0), new BigDecimal(0), new Date(), new Date(),

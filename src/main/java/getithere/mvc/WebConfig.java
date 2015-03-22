@@ -1,16 +1,18 @@
-package name.msutherland.hackathon.mvc;
+package getithere.mvc;
 
 
-import name.msutherland.hackathon.backend.MongoConnection;
+import getithere.backend.MongoConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="name.msutherland.hackathon")
+@ComponentScan(basePackages="getithere")
 public class WebConfig {
 
     @Bean
@@ -26,6 +28,13 @@ public class WebConfig {
     public ApiActions apiActions(MongoConnection mongoConnection){
         return new ApiActions(mongoConnection);
         
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(10000000);
+        return multipartResolver;
     }
 
 }

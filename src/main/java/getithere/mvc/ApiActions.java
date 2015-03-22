@@ -1,6 +1,6 @@
-package name.msutherland.hackathon.mvc;
+package getithere.mvc;
 
-import name.msutherland.hackathon.backend.*;
+import getithere.backend.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("api")
 public class ApiActions {
@@ -112,5 +114,22 @@ public class ApiActions {
 
         GetAction action = new GetAction(id, mongoConnection.getDb());
         return action.execute();
+    }
+
+    @RequestMapping(value="imageUpload", method=RequestMethod.POST, produces="application/json")
+    @ResponseBody()
+    public void imageUpload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
+        String filePath = request.getContextPath();
+        String pathname = filePath + "/upload/";
+        System.out.println("Transferring file to " + pathname);
+        File dest = new File(pathname);
+        file.transferTo(dest);
+
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", "success");
+        ArrayList<Map<String, Object>> list = new ArrayList<>();
+        list.add(map);
+     //   return list;
     }
 }

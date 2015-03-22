@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

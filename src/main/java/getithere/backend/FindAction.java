@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;

@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -10,9 +10,6 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 
-import static name.msutherland.hackathon.backend.MongoConnection.HOST;
-import static name.msutherland.hackathon.backend.MongoConnection.PORT;
-
 public class InsertActionTest{
     
     private static MongoClient mongoClient;
@@ -20,7 +17,7 @@ public class InsertActionTest{
     
     @BeforeClass
     public static void beforeClass(){
-        mongoClient = new MongoClient(HOST, PORT);
+        mongoClient = new MongoClient(MongoConnection.HOST, MongoConnection.PORT);
         db = mongoClient.getDatabase("mydb");
     }
     

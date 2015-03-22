@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;

@@ -90,9 +90,9 @@
                         <img src="img/camerablack.png" alt="">
                     </div>
                     <div class="fileinput-preview fileinput-exists thumbnail"
-                         style="max-width: 100px; max-height: 100px;"></div>
+                         style="max-width: 100px; max-height: 100px;" id="fileThumbnail"></div>
                     <div>
-                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span
+                        <span class="btn btn-default btn-file"><span class="fileinput-new">Choose</span><span
                                 class="fileinput-exists">Change</span><input type="file" name="..."></span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                     </div>
@@ -235,12 +235,36 @@
                     fv = $form.data('formValidation');
 
             // Use Ajax to submit form data
+            var mpdata = new FormData();
+            mpdata.append('file', $('#fileThumbnail').children('img').attr('src'));
+
+            //alert(mpdata.toString);
             $.ajax({
                 url: $form.attr('action'),
                 type: 'POST',
                 data: $form.serialize(),
                 success: function (result) {
-                    window.location.replace("selling.html");
+                    //upload an image
+                    if($('#fileThumbnail').children('img')){
+                        //alert($('#fileThumbnail').children('img').attr('src'));
+                        $.ajax({
+                            url: "http://localhost:8080/dynamic/api/imageUpload", // Url to which the request is send
+                            type: "POST",      // Type of request to be send, called as method
+                            data: mpdata, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                            contentType: 'image/jpeg', // The content type used when sending data to the server.
+                            cache: false,             // To unable request pages to be cached
+                            processData:false,        // To send DOMDocument or non processed data file it is set to false
+                            success: function(data)   // A function to be called if request succeeds
+                            {
+                                //alert('Success:' +data);
+                                window.location.replace("selling.html");
+                            },
+                            error: function(data){
+                                //alert('error:'+JSON.stringify(data));
+                                window.location.replace("selling.html");
+                            }
+                        });
+                    }
                 },
                 error: function (result) {
                     alert("Something screwed up....can we blame the Mastercard APIs?")
@@ -248,6 +272,8 @@
             });
         });
     });
+
+
 </script>
 
 </body>

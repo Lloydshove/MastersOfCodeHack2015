@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

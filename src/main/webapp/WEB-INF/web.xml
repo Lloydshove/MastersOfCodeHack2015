@@ -13,7 +13,7 @@
         </init-param>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>name.msutherland.hackathon.mvc</param-value>
+            <param-value>getithere.mvc</param-value>
         </init-param>
     </servlet>
 
@@ -24,11 +24,12 @@
 
     <filter>
         <filter-name>cors</filter-name>
-        <filter-class>name.msutherland.hackathon.backend.SimpleCORSFilter</filter-class>
+        <filter-class>getithere.backend.SimpleCORSFilter</filter-class>
     </filter>
 
     <filter-mapping>
         <filter-name>cors</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 </web-app>

@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.mvc;
+package getithere.mvc;
 
 import com.gargoylesoftware.htmlunit.HttpMethod;
 import com.gargoylesoftware.htmlunit.WebClient;

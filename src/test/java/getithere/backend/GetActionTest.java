@@ -1,17 +1,10 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Date;
-
-import static name.msutherland.hackathon.backend.MongoConnection.HOST;
-import static name.msutherland.hackathon.backend.MongoConnection.PORT;
 
 public class GetActionTest {
     
@@ -20,7 +13,7 @@ public class GetActionTest {
     
     @BeforeClass
     public static void beforeClass(){
-        mongoClient = new MongoClient(HOST, PORT);
+        mongoClient = new MongoClient(MongoConnection.HOST, MongoConnection.PORT);
         db = mongoClient.getDatabase("mydb");
     }
     

@@ -1,4 +1,4 @@
-package name.msutherland.hackathon.backend;
+package getithere.backend;
 
 
 import com.mongodb.client.MongoCollection;
@@ -9,7 +9,6 @@ import org.apache.logging.log4j.message.FormattedMessage;
 import org.bson.Document;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
