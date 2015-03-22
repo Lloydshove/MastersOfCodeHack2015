@@ -4,7 +4,7 @@ body{
 
 .y-scrollable {
     overflow-y: auto;
-    max-height: 35%;
+    max-height: 50%;
 }
 
 div .mapRow {
@@ -27,10 +27,10 @@ a.list-group-item.highlighted {
     margin: 7px;
 }
 
-#mapHolderWell div{
+#mapHolderWell > div{
     height: 100%;
 }
 
 #googleMap {
-    height: 100%;
+    height: 300px;
 }
