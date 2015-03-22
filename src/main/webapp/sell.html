@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link href="css/gih.css" rel="stylesheet">
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/formValidation.min.css">
     <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -72,7 +73,7 @@
         </ul>
     </div>
 </div>
-<form role="form" method="post" action="http://localhost:8080/dynamic/api/insert">
+<form role="form" method="post" id="sellForm" action="http://localhost:8080/dynamic/api/insert">
 
     <div class="container-fluid">
         <div class="row">
@@ -103,7 +104,7 @@
     <div class="container">
 
         <div class="form-group">
-            <input class="form-control" id="title" placeholder="Title">
+            <input class="form-control" name="title" placeholder="Title">
         </div>
         <div class="form-group" hidden="true">
             <textarea class="form-control" name="customerId" placeholder="CustomerId"></textarea>
@@ -115,10 +116,10 @@
             <input class="form-control" name="yPosition" placeholder="yPosition">
         </div>
         <div class="form-group" hidden="true">
-            <input class="form-control input-group date" id="start" name="start" placeholder="start">
+            <input class="form-control input-group date" id="start" name="start" placeholder="start" value="01011000010101">
         </div>
         <div class="form-group" hidden="true">
-            <input class="form-control" id="end" name="end" placeholder="end">
+            <input class="form-control" id="end" name="end" placeholder="end" value="01011300010101">
         </div>
         <div class="form-group">
             <textarea class="form-control" name="keywords" placeholder="Description"></textarea>
@@ -127,11 +128,11 @@
             <input class="form-control" name="price" placeholder="Price">
         </div>
         <div class="form-group" hidden="true">
-            <input class="form-control" name="buyOrSell" placeholder="buyOrSell">
+            <input class="form-control" name="buyOrSell" placeholder="buyOrSell" value="BUY">
         </div>
         <row>
             <div class="col-md-10 col-xs-8" style="padding-left:0">
-                <button type="submit" class="btn btn-default btn-lg" id="submit" value="SUBMIT">Submit</button>
+                <button type="submit" class="btn btn-default btn-lg" id="submitButton">Submit</button>
             </div>
             <div class="col-md-2 col-xs-4">
                 <button type="button" class="btn btn-default" onclick="popUpMapPage()">
@@ -144,7 +145,11 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+
 <script src="dist/js/bootstrap.min.js"></script>
+<script src="js/formValidation.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/jasny-bootstrap.min.js"></script>
 
 <script type="text/javascript">
@@ -162,6 +167,60 @@
 <script src="dist/js/bootstrap-lightbox.js"></script>
 
 <script src="js/sell_MapPopUp.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#sellForm').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                title: {
+                    validators: {
+                        notEmpty: {
+                            message: 'title is required'
+                        }
+                    }
+                },
+                keywords: {
+                    validators: {
+                        notEmpty: {
+                            message: 'description is required'
+                        }
+                    }
+                },
+                price: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The price is required'
+                        },
+                        numeric:{
+                            message: 'Price must be a number'
+                        }
+                    }
+                },
+                xPosition:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select at least one location to sell this item from'
+                        }
+                    }
+                },
+                yPosition:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select at least one location to sell this item from'
+                        }
+                    }
+                }
+
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
